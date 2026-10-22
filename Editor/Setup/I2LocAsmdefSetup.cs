@@ -4,73 +4,9 @@ using UnityEngine;
 
 namespace AnkleBreaker.Utils.UniversalTypes.Editor
 {
-    /// <summary>
-    /// Automatically detects I2 Localization without an asmdef and offers to create one.
-    /// This is required for UniversalString to directly reference I2.Loc.LocalizedString
-    /// instead of relying on reflection.
-    /// </summary>
-    [InitializeOnLoad]
+    /// <summary>Creates I2 Localization assembly definitions only through an explicit menu action.</summary>
     public static class I2LocAsmdefSetup
     {
-        private const string SessionKey = "AB_I2LocAsmdefSetup_Asked";
-
-        static I2LocAsmdefSetup()
-        {
-            // Only run once per editor session
-            if (SessionState.GetBool(SessionKey, false))
-                return;
-
-            // Delay to avoid running during import
-            EditorApplication.delayCall += CheckAndPrompt;
-        }
-
-        private static void CheckAndPrompt()
-        {
-            if (!IsI2LocPresent())
-                return;
-
-            if (HasI2LocAsmdef())
-                return;
-
-            SessionState.SetBool(SessionKey, true);
-
-            bool create = EditorUtility.DisplayDialog(
-                "AnkleBreaker UniversalTypes - I2 Localization Setup",
-                "I2 Localization was detected without an Assembly Definition.\n\n" +
-                "UniversalString requires an asmdef for I2L to use LocalizedString directly.\n\n" +
-                "Create I2.Loc.asmdef and I2.Loc.Editor.asmdef now?",
-                "Create asmdefs",
-                "Skip (use reflection fallback)");
-
-            if (create)
-                CreateI2LocAsmdefs();
-        }
-
-        private static bool IsI2LocPresent()
-        {
-            // Check common I2L locations
-            string[] possiblePaths =
-            {
-                "Assets/I2/Localization/Scripts",
-                "Assets/Plugins/I2/Localization/Scripts",
-            };
-
-            foreach (string path in possiblePaths)
-            {
-                string fullPath = Path.Combine(Application.dataPath, "..", path);
-                if (Directory.Exists(fullPath))
-                    return true;
-            }
-
-            return false;
-        }
-
-        private static bool HasI2LocAsmdef()
-        {
-            string[] guids = AssetDatabase.FindAssets("I2.Loc t:asmdef");
-            return guids.Length > 0;
-        }
-
         /// <summary>
         /// Creates I2.Loc.asmdef and I2.Loc.Editor.asmdef in the I2 Localization Scripts folder.
         /// Can be called manually from menu.
