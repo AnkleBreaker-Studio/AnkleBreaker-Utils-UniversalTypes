@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.1] - 2026-10-22
+
+### Fixed
+
+- I2 Localization assembly setup no longer prompts on editor startup or domain reload. Create the assemblies explicitly from AnkleBreaker > UniversalTypes > Create I2L Assembly Definitions.
+
+### Added
+
+- EditMode regression tests for loading the setup without prompts or file writes and for creating both assemblies through the menu.
+
 ## [1.2.0] - 2026-04-01
 
 ### Changed

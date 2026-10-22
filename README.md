@@ -91,9 +91,9 @@ https://github.com/AnkleBreaker-Studio/AnkleBreaker-Utils-UniversalTypes.git#Rel
 
 ## I2 Localization Setup
 
-If you use **I2 Localization** (Asset Store version without asmdef), the package will detect it automatically on first import and offer to create the required Assembly Definitions (`I2.Loc.asmdef` + `I2.Loc.Editor.asmdef`).
+If you use **I2 Localization** (Asset Store version without asmdef), create the required Assembly Definitions (`I2.Loc.asmdef` + `I2.Loc.Editor.asmdef`) explicitly. Setup does not open a dialog or create files on editor startup or domain reload.
 
-You can also trigger this manually via: **AnkleBreaker > UniversalTypes > Create I2L Assembly Definitions**
+Use the menu: **AnkleBreaker > UniversalTypes > Create I2L Assembly Definitions**
 
 ## Requirements
 
